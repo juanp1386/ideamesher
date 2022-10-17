@@ -1,0 +1,118 @@
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/main_app.css' %}">
+    <link href="//fonts.googleapis.com/css2?family=Baloo+Bhaina+2&display=swap" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+    <title>ideamesher</title>
+
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-TLZGS3BCH9"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-TLZGS3BCH9');
+        gtag('config', 'GA_MEASUREMENT_ID', {'user_id': '{{ user.username }}'});
+      </script>
+
+      <!-- Begin Inspectlet Asynchronous Code -->
+      <script type="text/javascript">
+      (function() {
+      window.__insp = window.__insp || [];
+      __insp.push(['wid', 1737859653]);
+      __insp.push(['identify', '{{ user.username }}']);
+
+      var ldinsp = function(){
+      if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1737859653&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+      setTimeout(ldinsp, 0);
+      })();
+
+      </script>
+
+      <!-- End Inspectlet Asynchronous Code -->
+
+
+  </head>
+  <body>
+
+
+    <div class="page-header">
+      <div class="dropdown">
+        <!-- <a href="/" class="top-menu top-icon"><span class="dropbtn glyphicon glyphicon-menu-hamburger"></span></a> -->
+        <!-- <a href="/" class="top-menu top-icon"><span><img id="menu_icon" src="{% static 'images/hamburger.svg' %}" alt="menu" height="20"/></span></a> -->
+        <a href="/" class="top-menu top-icon"><span><object type="image/svg+xml" data="{% static 'images/hamburger.svg' %}" id="menu_icon">Kiwi Logo</object></span></a>
+          <div class="dropdown-content">
+            <a href="{% url 'home' %}">home</a>
+            <a href="{% url 'project_list' %}">projects</a>
+            <a href="#">entries</a>
+            <a href="#">about us</a>
+            <a href="{% url 'learn' %}">learn</a>
+          </div>
+        </div>
+      {% if user.is_authenticated %}
+        <!-- <p class="top-menu username">{{ user.username }}<small>(<a href="{% url 'logout' %}">Log out</a>)</small></p> -->
+        <div class="dropdown">
+          <!-- <p class="top-menu username paragraph">{{ user.username }} <span class="dropbtn glyphicon glyphicon-user"></span></p> -->
+          <p class="top-menu username paragraph">{{ user.username }} <span><img src="{% static 'images/user.svg' %}" alt="menu" height="20"/></span></p>
+          <div class="dropdown-content">
+            <a href="#">my profile</a>
+            <a href="#">settings</a>
+            <a href="{% url 'logout' %}">logout</a>
+          </div>
+        </div>
+      {% else %}
+        <a href="{% url 'login'%}" class="top-menu username"> login <span class="glyphicon glyphicon-log-in"></span></a>
+      {% endif %}
+      <!-- <a href="/" class="logo"><img src="{% static 'images/logo_coalisium.svg' %}" alt="logo" height="40"/></a> -->
+      <a href="/" class="logo"><img src="{% static 'images/coalisiumLogo.png' %}" alt="logo" height="40"/></a>
+    </div>
+    <div class="content container">
+      <div class="row">
+        <div>
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <div id="feedback_footer">
+      <p data-toggle="modal" data-target="#myModal">give us feedback</p>
+    </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Give us feedback</h4>
+            </div>
+            <div class="modal-body">
+              <p>We appreciate your feeback, please write us at <b>contact@coalisium.com</b>, we promise we'll answer back.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="{% static 'js/main_app.js' %}"></script>
+     {% block javascript %}{% endblock %}
+
+  </body>
+</html>

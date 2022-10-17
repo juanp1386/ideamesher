@@ -1,0 +1,24 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+  <h1> project list </h1> 
+  <a href="{% url 'project_new'%}" class="btn btn-default top-right-button"><span class="glyphicon glyphicon-plus"></span><span class= btn-text> new project </span></a>
+  <table class="table">
+    <tr class="table-header">
+      <th scope="col">#</th>
+      <th scope="col">name</th>
+      <th scope="col">date</th>
+      <th scope="col">started by</th>
+    </tr>
+    {% for project in projects %}
+      <tr>
+
+        <th class="date" scope="row">{{project.pk}}</th>
+        <td><a class="project" href="{% url 'project_view' pk=project.pk %}">{{project.title}}</a></td>
+        <td class="date">{{ project.created_date }}</td>
+        <td class="date">{{project.author}}</td>
+
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

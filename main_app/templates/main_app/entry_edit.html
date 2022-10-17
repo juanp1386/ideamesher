@@ -1,0 +1,18 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+  {% if user.username == entry_author.username %}
+    <h2>{{entry_id}} </h2>
+    <p class="paragraph"><small>{{note}}</small></p>
+    <form method='Post' class="post-form">{% csrf_token %}
+      {{ form.media}}
+      {{ form.as_p }}
+      <button type="submit" class="save btn btn-default"><span class="glyphicon glyphicon-floppy-disk"> </span> save</button>
+      {% if entry_project == 'none' %}
+        <a  href="{% url 'project_list' %}"> <button type="button" href="{% url 'project_list' %}" class="save btn btn-default"><span class="glyphicon glyphicon-remove"> </span> cancel</button></a>
+      {% else %}
+        <a  href="{% url 'project_view' pk=entry_project %}"><button type="button" href="{% url 'project_view' pk=entry_project %}" class="save btn btn-default"><span class="glyphicon glyphicon-remove"> </span> cancel</button></a>
+      {% endif %}
+    </form>
+
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,146 @@
+Used:
+
+ https://tutorial.djangogirls.org/en/django_installation/
+ https://tutorial-extensions.djangogirls.org/en/heroku/
+
+ https://overiq.com/django-1-10/integrating-ckeditor-in-django/
+
+
+
+Next steps:
+  x add signup button on login page DONE
+  x clean the signup page DONE
+  x make image upload work DONE
+  x allow all signed in users to upload images DONE
+  x clean ckeditor interface, remove buttons including html edition DONE
+  x have a separate image folder per user
+  x increase ckeditor width DONE
+  x increase entry_text width DONE
+  x move new project button from header to project_list DONE
+  x create table of projects instead of list of projects DONE
+  x limit height for ck editor and description textarea
+  - clean and beautify tree:
+    x make entries height bigger
+    x correct svg elements order with js
+    x add a frame for the tree
+    x align lines
+    x remove unnecessary lines
+    x make SVG container size dynamic based on content
+  x add short description to model
+  x put entry pre-view for selected entry on project view
+    x add project short description
+    x add entry_id
+    x add entry short description
+    x add buttons to see the entry_view
+  x scrollable tree
+  - avoid css edition of user entry input
+  x only allow users that created the entry to edit it DONE
+  x add publishing functionality (can't add content to it before, show with different color)
+    x define publishing functionality for sub_requirements
+    x hide/show buttons based on publish status
+    - Show with different color
+  x avoid logo to get modified in smaller devices (convert logo text to SVG)
+  x add a back to project view button on entry view and edit
+  - adapt to different browsers
+  - help page
+  x remove sorce <> in WYSIWYG editor
+  x ssl
+  - review safety and release as production
+          WARNINGS:
+        ?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to
+        read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.
+        ?: (security.W012) SESSION_COOKIE_SECURE is not set to True. Using a secure-only session cookie makes it more difficult for network traffic sniffers to hijack user sessions.
+
+        ?: (security.W016) You have 'django.middleware.csrf.CsrfViewMiddleware' in your MIDDLEWARE, but you have not set CSRF_COOKIE_SECURE to True. Using a secure-only CSRF cookie makes it more difficult for network traffic sniffe
+        rs to steal the CSRF token.
+        ?: (security.W022) You have not set the SECURE_REFERRER_POLICY setting. Without this, your site will not send a Referrer-Policy header. You should consider enabling this header to protect user privacy.
+
+
+
+
+  -------------------------------------------------------------------------------- Pause and work on testing/feedback (MVP)
+
+  - set s3 as private, AWS_QUERYSTRING_AUTH = True. Make it work with editor
+  - s3 safety
+  x environment variables
+  - make sure functionality is blocked from server side (ej, check username matches author for edit and post, no edits on posted entries, no entries added on not posted entries, etc.)
+  - better image upload functionality
+  - invite a friend
+  - word counter for title and short description
+  - general search
+  - in entry preview information based on entry_id location hovered
+  - in project list, preview information based on project hovered
+  x add menu button on top left, move logo top right and user info top center
+  - menu button:
+    - home,
+        - following projects (started, participating and following, filtered by latest with changes)
+        - my entries
+    - projects,
+        - projects started by me (in automatic followed, can un-follow)
+        - projects in which I'm participating (in automatic following, can un-follow)
+        - other projects that I'm following (can un-follow)
+        - discover new projects
+    - entries,
+        - my entries
+        - entries that I'm following
+        - discover new entries
+  - my profile,
+      - interests
+      - contacts
+  - entry hashtags or topics
+  - add to entry view
+  - add comment functionality
+    - comments to remain open after publishing in order to allow for clarifications
+
+  - list requirements with links in concept view page
+  x creative commons integration
+  - search functionality
+  - number of views, collaborators, entries and comments.
+  - forgot password functionality
+
+  ---------------------------------------------------------------------------------
+
+Nice to have
+ - add hovered entry information as a pop-up after hovering for 2 sec to the tree view
+ - animated logo
+ - help queues
+ - entry picture
+
+Future advanced development
+ - feedback from deeper entries to shallower entries (the right hand of the V model)
+ - smart relationship classification between projects and entries (which entries or projects are similar between each other, through AI classification based on hashtags, content and users)
+ - allow users to move content up or down in the project tree,
+ - show content in trees based on both personal and public weighted positions ^˅ at the endo of each entry button in the tree
+    - public weighted positions could be based on
+        - number of people that decided to move that content ( similar to number of reviews )
+        - user rating
+        - customer positioning (for customer related projects, or prices)
+ - allow users to minimize entries in tree
+ - user ratings/status based on topics
+ - community where you can find people with similar profiles as yours
+ - base on (can edit) and copy (can't edit) entries.
+
+--------------------------------------------------------------------------------
+
+Random Ideas:
+  - competitions with prices, sponsored by companies championed by institutions and universities
+  - rewards could be given based on position as follows
+
+        order reward distribution
+          1	          50%
+          2	          30%
+          3	          20%
+
+        of which, type of entry distribution
+          concept	    33%
+          design	    33%
+	        validation	33%
+
+        of which, depth distribution
+          1st level	  50%
+          2nd level	  30%
+          3rd level	  20%
+
+    - order based as well on judges (for prices) or customer
+    - participants have the option of recommending other users to participate
+    - internal money for trading collaboration, I collaborate in exchange of having others collaborate in my projects

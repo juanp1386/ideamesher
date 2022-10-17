@@ -1,0 +1,29 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+
+    <p class="intro" >
+      <b class="highlight_blue">We can transform the word together.. coalisium</b>
+      <span style="color:white;mso-themecolor:background1"> is a web-based tool for enabling democratized crowd-collaboration. Here you can explore, create or contribute to a project...</span> <a class=highlight_blue  href="{% url 'learn'%}"> Learn more.</a></p>
+
+  <h1> list of projects: </h1>
+  <a href="{% url 'project_new'%}" class="btn btn-default top-right-button"><span class="glyphicon glyphicon-plus"></span><span class= btn-text> new project </span></a>
+  <table class="table">
+    <tr class="table-header">
+      <th scope="col">#</th>
+      <th scope="col">name</th>
+      <th scope="col">date</th>
+      <th scope="col">started by</th>
+    </tr>
+    {% for project in projects %}
+      <tr>
+
+        <th class="date" scope="row">{{project.pk}}</th>
+        <td><a class="project" href="{% url 'project_view' pk=project.pk %}">{{project.title}}</a></td>
+        <td class="date">{{ project.created_date }}</td>
+        <td class="date">{{project.author}}</td>
+
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

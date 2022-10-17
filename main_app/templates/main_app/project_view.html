@@ -1,0 +1,131 @@
+{% extends 'main_app/base.html' %}
+
+
+{% block javascript %}
+  <script>
+    $( document ).ready(function() {
+      $("#view_button").hide();
+      $("#edit_button").hide();
+      $("#new_con").hide();
+      $("#new_val").hide();
+      $("#new_des").hide();
+      $("#new_req").hide();
+    });
+    $( ".tree_link" ).click(function() {
+      $.ajax({
+        url: "{% url 'show_entry_info'%}",
+        data: {
+          'entry_pk': $(this).attr('id')
+        },
+        dataType: 'json',
+        success: function (data) {
+          var this_entry_date= new Date(Date.parse(data.entry_date));
+          $("#entry_id_for_info").text(data.entry_id);
+          $("#entry_desc_for_info").text(data.entry_desc);
+          $("#entry_title_for_info").text(data.entry_title);
+          $("#entry_author_date").text('posted by '+data.entry_author+' on '+this_entry_date);
+          $("#view_button").attr("href", "/entry/"+data.entry_pk+"/");
+          $("#view_button").show();
+          if(data.entry_published_date){
+            console.log("published")
+            $("#edit_button").hide();
+            $("#new_req").hide();
+            if(data.entry_type == "C"){
+              $("#new_des").show();
+              $("#new_des").attr("href", "/entry/new/"+data.entry_pk+"/");
+
+              $("#new_val").hide();
+              $("#new_con").hide();
+            }
+            else if(data.entry_type == "D"){
+              $("#new_val").show();
+              $("#new_val").attr("href", "/entry/new/"+data.entry_pk+"/");
+
+              $("#new_des").hide();
+              $("#new_con").hide();
+
+            }
+            else if(data.entry_type == "R"){
+              $("#new_con").show();
+              $("#new_con").attr("href", "/entry/new/"+data.entry_pk+"/");
+
+              $("#new_val").hide();
+              $("#new_des").hide();
+
+            }
+            else if(data.entry_type == "V"){
+              $("#new_con").hide();
+              $("#new_val").hide();
+              $("#new_des").hide();
+
+            }
+          }
+          else{
+            console.log("not published")
+            $("#new_des").hide();
+            $("#new_val").hide();
+            $("#new_con").hide();
+            if(data.entry_type == "C"){
+              if(data.entry_author=="{{user.username}}"){
+                $("#new_req").show();
+                $("#new_req").attr("href", "/req/new/"+data.entry_pk+"/");
+              }
+            }
+            else{
+              $("#new_req").hide();
+            }
+            if(data.entry_author=="{{user.username}}"){
+              $("#edit_button").show();
+              $("#edit_button").attr("href", "/entry/edit/"+data.entry_pk+"/");
+            }
+            else{
+              $("#edit_button").hide();
+            }
+          }
+        }
+      });
+    });
+  </script>
+{% endblock %}
+
+
+{% block content %}
+  <div class="project">
+    <div class="project_view">
+      <div id="svg_div" class="neumorphism-out">
+        <div id="svg_div_div">
+          <svg class='svg_container' id='tree_svg' height='400px'>
+            {{ project_tree_SVG|safe }}
+            <use href=".tree_button_group"/>
+          </svg>
+        </div>
+      </div>
+      <div class="entry_info">
+        <div id="entry_content_container">
+          <h2 id="project_title">project {{project.pk}} : {{project.title}}</h2>
+          <div class="date">
+            <small> started by {{project.author}} on {{project.created_date}}</small>
+          </div>
+          <p id="project_description" class="paragraph">{{project_desc}}<p>
+          <hr>
+          <h3 id="entry_id_for_info">click on an entry node on the tree to see it's info here</h3>
+          <a hidden class="icon_button" id="edit_button"><span class="glyphicon glyphicon-pencil"></span></a>
+          <a hidden class="icon_button" id="view_button"><span class="glyphicon glyphicon-eye-open"></span></a>
+          <h3 id="entry_title_for_info"></h3>
+          <div class="date">
+            <small id="entry_author_date"></small>
+          </div>
+          <p id="entry_desc_for_info" class="paragraph"></p>
+        </div>
+        <div class="button_container">
+          <a id="new_req" class="btn btn-default" href=""><span class="glyphicon glyphicon-plus"></span><span class= btn-text> add requirement </span></a>
+          <a id="new_des" class="btn btn-default" href=""><span class="glyphicon glyphicon-plus"> </span><span class= btn-text> add design</span></a>
+          <a id="new_con" class="btn btn-default" href=""><span class="glyphicon glyphicon-plus"></span><span class= btn-text> add concept </span></a>
+          <a id="new_val" class="btn btn-default" href=""><span class="glyphicon glyphicon-plus"> </span><span class= btn-text> add validation </span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
