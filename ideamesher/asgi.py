@@ -1,5 +1,5 @@
 """
-ASGI config for coalisium project.
+ASGI config for ideamesher project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

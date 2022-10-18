@@ -1,5 +1,5 @@
 """
-WSGI config for coalisium project.
+WSGI config for ideamesher project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

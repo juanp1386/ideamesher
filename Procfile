@@ -1,1 +1,1 @@
-web: gunicorn coalisium.wsgi --log-file -
+web: gunicorn ideamesher.wsgi --log-file -
